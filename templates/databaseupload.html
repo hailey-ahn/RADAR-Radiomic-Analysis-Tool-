@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>Radiomics Analysis Tool</title>
+		<meta name="viewport" content="width=device width, initial-scale=1.0">
+
+
+	<style>
+
+		body {
+		margin-top: 70px;
+		padding-left: 20%;
+		padding-right: 20%;
+		}
+
+
+		#header {
+			margin: 40px;
+			padding-top: 40px;
+			height: 300px;
+		}
+
+		h1 {
+			color: darkblue;
+			text-align: left; 
+			font-family: sans-serif, Helvetica, Arial Black, Lato;
+		}
+
+		h3 {
+			text-align: center;
+			font-family: sans-serif, Helvetica, Arial Black, Lato;
+		}
+
+		.container {
+			align-items: center;
+			text-align: center;
+			border: 3px solid #f1f1f1;
+			margin-top: 20px;
+			padding: 70px;
+		}
+
+		nav {
+			list-style-type: none;
+		  	overflow: hidden;
+		  	float:  right;
+		}
+
+		.navbar-fixed-top.scrolled {
+		  	background-color: #f3f3f3; !important;
+		  	transition: background-color 200ms linear;
+		}
+
+		nav a {
+		  	float: left;
+		  	display: block;
+		  	color: #666;
+		  	text-align: center;
+		  	padding: 14px 16px;
+		  	text-decoration: none;
+		}
+
+		nav a:hover:not(.active) {
+		  background-color: #ddd;
+		}
+
+		nav a.active {
+		  color: white;
+		  background-color: #4CAF50;
+		}
+
+
+
+	</style>
+
+	</head>
+	
+
+	<body>
+
+		<h1>Radiomics Database Upload</h1>
+		<nav id="navbar" class="navbar-fixed-top">
+			<a href="login" class="navtool">Logout</a>
+			<a href="databaseupload" class="navtool">Clear</a>
+		</nav>
+
+    <br><br>
+	 		<div class="container"> 
+	 				<h3>Select Database to Upload</h3><br>
+					<form action="", method="post">
+					<input type="file" accept=".json, .csv" id="myFile" name="filename">	
+
+					<br><br><label for="ctype">Choose cancer type:</label>
+			    <!-- select from full list of cancer -->
+					<select id ="c_list" name= "ctype">   
+						<option value="Select">Select</option>                           
+							{% for CANCER_TYPE in cancer_list %}                      
+							<!-- for loop in HTML: go through cancer list and access information -->
+									    
+						<option value= "{{CANCER_TYPE[1]}}" SELECTED>{{CANCER_TYPE[1]}}</option>"     
+							{% endfor %} 
+					</select>
+
+					<!-- <input type="submit"> -->
+					<br><br><button type="submit">submit</button>
+					</form>
+			</div>
+
+			{% if error %}
+			  <p class="error"> {{ error }}
+			{% endif %}
+
+	</body>
+</html>

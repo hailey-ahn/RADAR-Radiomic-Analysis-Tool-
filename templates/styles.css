@@ -1,0 +1,60 @@
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css";
+
+body {
+	margin-top: 70px;
+	padding-left: 12%;
+	padding-right: 12%;
+	background-color: #212121;
+	color: white;
+}
+
+
+#header {
+	margin: 40px;
+	padding-top: 40px;
+	height: 300px;
+}
+
+h1 {
+	color: darkblue;
+	text-align: left; 
+	font-family: sans-serif, Helvetica, Arial Black, Lato;
+}
+
+
+nav {
+	margin-left: 12%;
+	margin-right: 12%;
+	list-style-type: none;
+  overflow: hidden;
+}
+
+.navbar-fixed-top.scrolled {
+  	background-color: #f3f3f3; !important;
+  	transition: background-color 200ms linear;
+}
+
+nav a {
+  	float: left;
+  	display: block;
+  	color: #666;
+  	text-align: center;
+  	padding: 14px 16px;
+  	text-decoration: none;
+}
+
+nav a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+nav a.active {
+  color: white;
+  background-color: #4CAF50;
+}
+
+.title{
+	font-weight: bold;
+	font-size: 15px;
+	text-align: left;
+}
+

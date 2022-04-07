@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	
+
+	<head>
+		<title>Radiomics Analysis Tool</title>
+		<meta name="viewport" content="width=device width, initial-scale=1.0">
+
+
+	<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		/* Create three unequal columns that floats next to each other */
+		.column {
+		  display: table;
+		  float: left;
+		  width: 100%;
+		  padding: 10px;
+		}
+
+		.left {
+		  width:15%;
+		  display: table-cell;
+		  padding: 10px;
+		}
+
+		.right {
+		  width: 50%;
+		  display: table-cell;
+		  padding: 10px;
+		  text-align: center;
+		}
+
+		.middle {
+		  width: 35%;
+		  display: table-cell;
+		  padding: 10px;
+		  text-align: center;
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		.uploadbox{
+			border-style: dotted;
+			border-width: 1px;
+			border-color: black;
+			padding: 5px;
+		}
+
+		body {
+		margin-top: 30px;
+		padding-left: 1%;
+		padding-right: 1%;
+		}
+
+
+		#header {
+			margin: 40px;
+			padding-top: 40px;
+			height: 300px;
+		}
+
+		h1 {
+			color: darkblue;
+			float: left;
+			font-family: sans-serif, Helvetica, Arial Black, Lato;
+			padding-left: 10px;
+		}
+
+		h4 {
+			float: left;
+			font-family: sans-serif, Helvetica, Arial Black, Lato;
+			padding-left: 10px;
+		}
+
+
+		nav {
+			list-style-type: none;
+		  	overflow: hidden;
+		  	float:  right;
+		}
+
+		.navbar-fixed-top.scrolled {
+		  	background-color: #f3f3f3; !important;
+		  	transition: background-color 200ms linear;
+		}
+
+		nav a {
+		  	float: left;
+		  	display: block;
+		  	color: #666;
+		  	text-align: center;
+		  	padding: 14px 16px;
+		  	text-decoration: none;
+		}
+
+		nav a:hover:not(.active) {
+		  background-color: #ddd;
+		}
+
+		nav a.active {
+		  color: white;
+		  background-color: #4CAF50;
+		}
+
+		.title{
+			font-weight: bold;
+			font-size: 15px;
+			text-align: left;
+		}
+
+		/* (A) LIST TO MENU */
+		.tree, .section ul {
+		  list-style: none;
+		  padding: 0;
+		  margin: 0;
+		}
+		.tree {
+		  background: #fbfbfb;
+		  border: 1px solid #d2d2d2;
+		}
+		.tree li {
+		  border-bottom: 1px solid #d2d2d2;
+		  padding: 15px 10px;
+		}
+		.tree li:last-child {
+		  border: 0;
+		}
+
+		/* (B) SUB-SECTIONS */
+		/* (B1) TOGGLE SHOW/HIDE */
+		.section ul { display: none; }
+		.section input:checked ~ ul { display: block; }
+
+		/* (B2) HIDE CHECKBOX */
+		.section input[type=checkbox] { display: none; }
+
+		/* (B3) ADD EXPAND/COLLAPSE ICON  */
+		.section { 
+		  position: relative; 
+		  padding-left: 35px !important;
+		}
+		.section label:after {
+		  content: "\0002B";
+		  position: absolute;
+		  top: 0; left: 0;
+		  padding: 10px;
+		  text-align: center;
+		  font-size: 30px;
+		  color: #f00;
+		  transition: all 0.5s;
+		}
+		.section input:checked ~ label:after { 
+		  color: #23c37a;
+		  transform: rotate(45deg);
+		}
+
+		/* (B4) SUB-SECTION ITEMS */
+		.section ul { margin-top: 10px; }
+		.section ul li { color: #d43d3d; }
+
+	</style>
+
+	</head>
+	
+	
+
+	<body>
+
+		<h1>RADAR</h1>
+		<br><h4>Radiomics Analysis Tool</h4>
+		<nav id="navbar" class="navbar-fixed-top">
+			<a href="#resumeinfo" class="navtool">Save</a>
+			<a href="projects.html" class="navtool">Export</a>
+			<a href="login" class="navtool">Logout</a>
+			<a href="home" class="navtool">Reset</a>
+		</nav>
+		
+		
+		<div class="column">
+        	<div class="left" style="background-color:#f0f0f0;">
+            	<h2>DICOM upload and Database selection</h2>
+	 				
+	 				<div class="uploadbox"> 
+					    <h4>Upload Patient DICOM image</h4>
+					    <form action="", method="post">
+						  	
+						  	<!-- select from full list of cancer -->
+								<select id ="c_list" name= "ctype">    			
+									<option value="Select">Select</option>                           
+										{% for CANCER_TYPE in cancer_list %}                      
+									  <!-- for loop in HTML: go through cancer list and access information -->
+									    
+									<option value= "{{CANCER_TYPE[1]}}" SELECTED>{{CANCER_TYPE[1]}}</option>"     
+									{% endfor %} 
+								</select> 
+								
+
+								<br><br>Input Patient ID:<input type = "text", id ="patientID", name="patientID">     
+
+
+								<br><br>Choose a DICOM file to upload<input type="file" accept=".dcm" id="myFile" name="filename">	
+
+								<h4>Select Database</h4>
+								<select id ="selectData" name= "selectData">                               
+								    {% for table_name in tablenames %}                               
+								    <option value= "{{table_name[0]}}" SELECTED>{{table_name[0]}}</option>"     
+								    {% endfor %}                                                    
+								</select>
+
+
+						  	<br><br><input type="submit">
+						</form>
+						{% if error %}
+						  	<p class="error"> {{ error }}
+						{% endif %}
+					</div>
+
+			<!-- <form>
+ 				<h4>Select Database and Patient</h4>
+				<select id ="d_list" name= "selectData">                               
+				    {% for table_name in tablenames %}                               
+				    <option value= "{{table_name}}" SELECTED>{{table_name}}</option>"     
+				    {% endfor %}                                                    
+				</select>
+			</form> -->
+
+    	    </div>
+        	<div class="middle" style="background-color:#dfedec;">
+            	<h2>Radiomic Features</h2>
+        	    <!-- select from full list of cancer -->
+							<select id ="r_list" name= "feature_type">                               
+							    {% for FEATURE_CATEGORY in feature_category_list %}                              
+							    <!-- for loop in HTML: go through feature list and access information -->
+							    <option value= "{{FEATURE_CATEGORY}}" SELECTED>{{FEATURE_CATEGORY[1]}}</option>"     
+							    {% endfor %}                                                    
+							</select> 
+				<form action="", method="post">
+
+				{% for row in result %}
+		        	{%for i in row %}
+			        
+			        <p><input type="checkbox" id="feature_selection" name="feature_selection" value= i > {{ i }} </p>
+			        	
+		        	{% endfor %}
+		        {% endfor %}
+		        <br><p>Select feature to plot</p>
+		        <br><br><input type="submit">
+
+		    	</form>
+        	</div>
+        	<div class="right" style="background-color:#cedade;">
+            	<h2>Plot</h2>           		
+            	<div id="myPlot"></div>
+        	</div>
+    	</div>
+    	
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+	<script>
+	var xArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+	var yArray = [1,1,2,3,4,5,5,3,4,2,3,4,5,6,6,5,4,6,7,5];
+
+	// Define Data
+	var data = [{
+	  x:xArray,
+	  y:yArray,
+	  mode:"markers"
+	}];
+
+	// Define Layout
+	var layout = {
+	  xaxis: {range: [40, 160], title: "Time [Days]"},
+	  yaxis: {range: [5, 16], title: "Radiomic Feature"},  
+	  title: "Radiomic features"
+	};
+
+	// Display using Plotly
+	Plotly.newPlot("myPlot", data, layout);
+	</script>
+
+	</body>
+</html>

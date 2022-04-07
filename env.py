@@ -1,0 +1,7 @@
+SERVER_IP = '127.0.0.1'
+SERVER_PORT = '5000'
+DATABASE = "test_db"
+DB_USER = "postgres"
+DB_PASSWORD = "Hyun5737!"
+DB_HOST = "127.0.0.1"
+DB_PORT = "5432"

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LOGIN Radiomics Analysis Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;
+    margin-top: 70px;
+    padding-left: 20%;
+    padding-right: 20%;}
+
+form {border: 3px solid #f1f1f1;
+  text-align: center;}
+
+input[type=text], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4287f5;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 30%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 30px;
+  align-items: center;
+  text-align: center;
+}
+
+.error{
+  color: red;
+}
+
+span.psw {
+  float: right;
+  padding: 15px;
+}
+
+/* Change styles for span on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1>RADAR</h1>
+<h5><bold><u>R</u></bold>adiomics <bold><u>A</u></bold>nalysis tool for <bold><u>D</u></bold>octors <bold><u>A</u></bold>nd <bold><u>R</u></bold>esearchers</h5>
+
+
+<form action="" method="post">
+  <h2>Login</h2>
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <br><label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <br><br><label for="utype">Choose user type:</label>
+    <select name="utype" id="utype">
+      <option value="Select">Select</option>
+      <option value="Doctor">Doctor</option>
+      <option value="Researcher">Researcher</option>
+    </select>
+    <br><br>
+        
+    <br><button type="submit">Login</button>
+    
+  </div>
+
+  <!-- <div class="container" style="background-color:#f1f1f1">
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div> -->
+</form>
+{% if error %}
+  <p class="error"><strong>Error:</strong> {{ error }}
+{% endif %}
+
+</body>
+</html>

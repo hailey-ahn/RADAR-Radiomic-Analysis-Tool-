@@ -1,0 +1,94 @@
+<!-- edit 3 -->
+<!-- app/templates/index.html -->
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+
+<!-- select from full list of patients -->
+<select id ="p_list" name= "patient">                               
+    {% for patient in patient_list %}                               
+    <!-- for loop in HTML: go through patient list and access information -->
+    <option value= "{{patient}}" SELECTED>{{patient}}</option>"     
+    {% endfor %}                                                    
+</select>                                                           
+
+
+
+
+
+<!-- search bar!! -->
+<form method="POST">                                                          <!-- new -->
+    <input type = "text", id ="search_text", name="search_text">              <!-- new -->
+    <input type="submit" value="search">                                      <!-- new -->
+</form>                                                                       <!-- new -->
+
+ <input list="p_list" type = "text">                                                                       
+<datalist id ="p_list" name= "patient" method="GET">              
+    {% for patient in patient_list %}                              
+    <option value= "{{patient}}" SELECTED>{{patient}}</option>"   
+    {% endfor %}                                                   
+</datalist> 
+
+<!-- in the datalist: replace {{patient}} with something like {{patient[1,3,2]}} to choose what information from which columns will be stored/displayed -->
+
+
+
+
+
+<button id = "previous">  PREVIOUS </button>
+<button id = "next">  NEXT </button>
+<input type="text" id="image_index_label" readonly>
+
+<div>
+<img id="patient_image" style="width:512px;height:512px;border: 1px solid #ddd;">
+</div>
+<script type='text/javascript'>
+  var image_list
+  var image_index = 0
+  // Assignment 1: define your next_element here 
+  var next_element = document.getElementById('next')
+  // Assignment 1: define your previous_element here
+  var previous_element = document.getElementById('previous')
+
+
+  function load_image(index){
+    document.getElementById('patient_image').src = $SCRIPT_ROOT+'images/'+image_list[index]
+    document.getElementById('image_index_label').value = `${image_index+1} / ${image_list.length}`
+      // Assignment 2: add if statement here
+      if (image_index > image_list.length-2){
+      	next_element.disabled = true;
+      } else{
+        next_element.disabled = false;	
+      }
+
+      if (image_index < 1){
+      	previous_element.disabled = true;
+      } else{
+      	previous_element.disabled = false;
+      }
+  }
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(document).ready(function() {
+      $.getJSON($SCRIPT_ROOT + '/_images_list', function(data) {
+            image_list = data.image_list
+            load_image(image_index)
+          });
+      // Assignment 1: add event listener for next button here
+		next_element.addEventListener('click', function (e) {
+			image_index += 1
+			load_image(image_index)
+		})
+      // Assignment 1: add event listener for previous button here
+      	previous_element.addEventListener('click', function (e) {
+			image_index -= 1
+			load_image(image_index)
+		})
+    })
+</script>
+</body>
+</html>
